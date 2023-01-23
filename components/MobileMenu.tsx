@@ -36,28 +36,30 @@ const MobileMenu = ({ isMenuOpen, toggleIsMenuOpen }: MobileMenuProps): JSX.Elem
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
 
-  let css = isMenuOpen ? { 'display': 'block' } : {};
-  let css2 = isMenuOpen ? { 'transform': 'translateX(0)' } : {};
-
   return (
-    <div className={styles.mobileNav} style={css}>
-      <div className={styles.mobileNavContainer} style={css2}>
-        <div className={styles.mobileNavWrapper}>
-          <Link href="/">
-            <Image src="/logo.png" alt="Plants Logo" width={120} height={55} />
-          </Link>
-          <button className={styles.mobileClose} onClick={toggleIsMenuOpen} />
-        </div>
-        <nav>
-          <ul className=''>
-            {data.headerMenu.data.attributes.HeaderDynamicMenu.map((item: MenuItem) => (
-              <li key={item.text} className=''>
-                <Link href={item.url}>{item.text}</Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <Link href="tel:00000000" className=''>Call us</Link>
+    <div className={`${styles.mobileNav} ${isMenuOpen ? styles.mobileNavOpen : ''}`}>
+      <div className={styles.mobileNavWrapper}>
+        <Link href="/" onClick={toggleIsMenuOpen}>
+          <Image src="/logo.png" alt="Plants Logo" width={120} height={55} />
+        </Link>
+        <button className={styles.mobileClose} onClick={toggleIsMenuOpen} />
+      </div>
+      <nav>
+        <ul className={styles.mobileNavList}>
+          {data.headerMenu.data.attributes.HeaderDynamicMenu.map((item: MenuItem) => (
+            <li key={item.text} className={styles.mobileNavListItem}>
+              <Link
+                href={item.url}
+                onClick={toggleIsMenuOpen}
+              >
+                {item.text}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <div className={styles.ctaWrapper}>
+        <a href="tel:00000000" className='cta-btn'>Call us</a>
       </div>
     </div>
   );
