@@ -1,0 +1,33 @@
+.aboutHero {
+  height: 500px;
+  background: #c4c4c4;
+  padding: 0 16px;
+}
+
+.container {
+  max-width: 1136px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.heading {
+  color: #ffffff;
+  font-size: 78px;
+  line-height: 106px;
+  font-weight: 500;
+  margin: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .aboutHero {
+    height: 380px;
+  }
+
+  .heading {
+    font-size: 32px;
+    line-height: 44px;
+  }
+}

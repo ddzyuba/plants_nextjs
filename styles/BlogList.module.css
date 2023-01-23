@@ -1,0 +1,78 @@
+.blogList {
+  margin-top: 100px;
+}
+
+.heading {
+  color: #212529;
+  font-size: 45px;
+  line-height: 61px;
+  margin: 0;
+  text-align: center;
+}
+
+.headingGreen {
+  color: #00730C;
+}
+
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 60px;
+}
+
+.item {
+  width: 329px;
+  box-shadow: 4.16604px 47.6181px 95.6px rgba(51, 51, 51, 0.1035), inset -0.935046px -10.6876px 10.7284px #E5E5E5, inset 0.935046px 10.6876px 10.7284px #FFFFFF;
+  border-radius: 10px;
+
+  background: linear-gradient(175deg, #FFFFFF 0%, #EAEAEA 92.31%);
+}
+
+.itemImage {
+  border-radius: 10px;
+}
+
+.itemWrapper {
+  padding: 20px;
+}
+
+.itemTitle {
+  color: #00730C;
+  display: inline-block;
+  font-size: 24px;
+  line-height: 33px;
+  font-weight: 500;
+  margin-bottom: 11px;
+}
+
+.itemText {
+  color: #676767;
+  font-size: 14px;
+  line-height: 25px;
+}
+
+@media screen and (max-width: 767px) {
+  .blogList {
+    margin-top: 50px;
+  }
+
+  .heading {
+    font-size: 28px;
+    line-height: 38px;
+  }
+
+  .wrapper {
+    margin-top: 30px;
+  }
+
+  .item {
+    width: 202px;
+  }
+
+  .itemImage {
+    width: 202px;
+    height: 130px;
+  }
+}

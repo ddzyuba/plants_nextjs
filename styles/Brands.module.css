@@ -1,0 +1,23 @@
+.brands {
+  margin-top: 100px;
+}
+
+.container {
+  max-width: 1712px;
+  margin: 0 auto;
+}
+
+.item {
+  text-align: center;
+}
+
+@media screen and (max-width: 767px) {
+  .brands {
+    margin-top: 50px;
+  }
+
+  .image {
+    width: 141px;
+    height: 70px;
+  }
+}

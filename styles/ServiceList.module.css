@@ -1,0 +1,131 @@
+.serviceList {
+  margin-top: 100px;
+}
+
+.wrapperTop {
+  max-width: 1136px;
+  margin: 0 auto 50px;
+  text-align: center;
+}
+
+.heading {
+  color: #212529;
+  font-size: 45px;
+  line-height: 61px;
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+.headingGreen {
+  color: #00730C;
+}
+
+.text {
+  color: #676767;
+  font-size: 18px;
+  line-height: 30px;
+  margin: 0;
+}
+
+.listWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.itemImg2 {
+  display: none;
+}
+
+.listItem {
+  display: block;
+  width: 329px;
+  box-shadow: 2px 11px 30px rgba(51, 51, 51, 0.08);
+  border-radius: 10px;
+  padding: 59px 42px;
+  text-align: center;
+  transition: background .5s;
+}
+
+.listItem:hover {
+  background: #00730C;
+}
+
+.listItem:hover .itemImg1 {
+  display: none;
+}
+
+.listItem:hover .itemImg2 {
+  display: inline-block;
+}
+
+.listItem:hover .itemTitle,
+.listItem:hover .itemText {
+  color: #ffffff;
+}
+
+.itemTitle {
+  color: #212529;
+  font-size: 24px;
+  line-height: 33px;
+  margin-top: 50px;
+  margin-bottom: 10px;
+  transition: color .5s;
+}
+
+.itemText {
+  color: #676767;
+  font-size: 16px;
+  line-height: 28px;
+  margin: 0;
+  transition: color .5s;
+}
+
+@media screen and (max-width: 767px) {
+  .serviceList {
+    margin-top: 50px;
+  }
+
+  .wrapperTop {
+    margin-bottom: 30px;
+  }
+
+  .heading {
+    font-size: 28px;
+    line-height: 38px;
+    margin-bottom: 15px;
+  }
+
+  .text {
+    font-size: 14px;
+    line-height: 22px;
+  }
+
+  .listWrapper {
+    gap: 20px;
+  }
+
+  .listItem {
+    padding: 20px;
+    width: unset;
+    text-align: left;
+  }
+
+  .listItemWrapper {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .itemTitle {
+    font-size: 16px;
+    line-height: 22px;
+    margin-top: 0;
+  }
+
+  .itemText {
+    font-size: 14px;
+    line-height: 22px;
+  }
+}

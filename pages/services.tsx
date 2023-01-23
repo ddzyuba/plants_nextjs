@@ -1,32 +1,26 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import HomeHero from '../components/Home/HomeHero';
+import ServicesHero from '../components/Services/ServicesHero';
 import ServiceList from '../components/ServiceList';
-import LeftImageRightText from '../components/LeftImageRightText';
 import WhyChooseUs from '../components/WhyChooseUs';
 import WorkingProcess from '../components/WorkingProcess';
 import Staff from '../components/Staff';
-import Testimonials from '../components/Testimonials';
-import Faq from '../components/Faq';
 
-const Home: NextPage = () => {
+const Services: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Plants</title>
+        <title>Services</title>
         <meta name="description" content="Plants" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <HomeHero />
+      <ServicesHero />
       <ServiceList />
-      <LeftImageRightText />
       <WhyChooseUs />
       <WorkingProcess />
       <Staff />
-      <Testimonials />
-      <Faq />
     </div>
   );
 }
 
-export default Home;
+export default Services;

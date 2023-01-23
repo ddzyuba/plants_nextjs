@@ -1,0 +1,147 @@
+.staff {
+  margin-top: 100px;
+}
+
+.heading {
+  color: #212529;
+  font-size: 45px;
+  line-height: 61px;
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+.headingGreen {
+  color: #00730C;
+}
+
+.text {
+  color: #676767;
+  font-size: 18px;
+  line-height: 30px;
+  margin: 0;
+}
+
+.ctaButton {
+  background: #00730C;
+  border-radius: 5px;
+  color: #ffffff;
+  display: inline-block;
+  padding: 10px 35px;
+}
+
+.people {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.person {
+  border-radius: 10px;
+  width: 329px;
+  height: 408px;
+  position: relative;
+}
+
+.image {
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.personInfo {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 90px;
+  width: 100%;
+  color: #ffffff;
+  text-align: center;
+  background: linear-gradient(6.68deg, #00730C 4.95%, rgba(251, 246, 238, 0) 264.79%);
+  border-radius: 10px;
+  padding: 13px;
+  transition: height .3s;
+}
+
+.personInfoWrapper {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.personName {
+  font-size: 24px;
+  line-height: 33px;
+  margin-top: 0;
+  margin-bottom: 1px;
+}
+
+.personJob {
+  font-size: 18px;
+  line-height: 30px;
+  margin: 0;
+}
+
+.person:hover .personInfo {
+  height: 100%;
+}
+
+.person:hover .links {
+  display: flex;
+}
+
+.links {
+  display: none;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 20px;
+}
+
+@media screen and (min-width: 768px) {
+  .wrapperTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+
+  .text {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 1440px) {
+  .people {
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .heading {
+    font-size: 28px;
+    line-height: 38px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .wrapperTop {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .text {
+    font-size: 14px;
+    line-height: 22px;
+    margin-bottom: 30px;
+  }
+
+  .staff {
+    margin-top: 50px;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .person {
+    width: 100%;
+  }
+}

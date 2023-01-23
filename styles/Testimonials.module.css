@@ -1,0 +1,154 @@
+.testimonials {
+  background: #E6F6EA;
+  margin-top: 100px;
+  padding: 100px 0;
+}
+
+.heading {
+  color: #212529;
+  font-size: 45px;
+  line-height: 61px;
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+.headingGreen {
+  color: #00730C;
+}
+
+.text {
+  color: #676767;
+  font-size: 18px;
+  line-height: 30px;
+  margin: 0;
+}
+
+.paginationDesktop {
+  display: flex;
+  gap: 30px;
+}
+
+.listItem {
+  background: #ffffff;
+  box-shadow: 2px 11px 30px rgba(51, 51, 51, 0.08);
+  padding: 32px 25px;
+}
+
+.listItemWrapper {
+  position: relative;
+  padding-top: 25px;
+}
+
+.listItemWrapper::before {
+  content: url(/quotation.svg);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.listItemText {
+  color: #676767;
+  font-size: 18px;
+  line-height: 30px;
+  margin-top: 0;
+  margin-bottom: 27px;
+}
+
+.listItemName {
+  color: #212529;
+  font-size: 24px;
+  line-height: 33px;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.listItemJob {
+  color: #676767;
+  font-size: 14px;
+  line-height: 25px;
+  margin: 0;
+}
+
+@media screen and (min-width: 768px) {
+  .wrapperTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+
+  .text {
+    width: 70%;
+  }
+
+  .listItem {
+    display: flex;
+    gap: 31px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .testimonials {
+    margin-top: 50px;
+    padding: 50px 0;
+  }
+
+  .heading {
+    font-size: 28px;
+    line-height: 38px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .text {
+    font-size: 14px;
+    line-height: 22px;
+    text-align: center;
+  }
+
+  .wrapperTop {
+    margin-bottom: 40px;
+  }
+
+  .paginationDesktop {
+    display: none;
+  }
+
+  .listItem {
+    padding: 20px;
+  }
+
+  .listItemWrapper {
+    margin-top: 30px;
+    padding-top: 14px;
+  }
+
+  .listItemWrapper::before {
+    transform: scale(0.6);
+    top: 0px;
+    left: -13px;
+  }
+
+  .image {
+    width: 135px;
+    height: 183px;
+  }
+
+  .listItemText {
+    font-size: 14px;
+    line-height: 22px;
+    margin-bottom: 15px;
+  }
+
+  .listItemName {
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 2px;
+  }
+
+  .listItemJob {
+    font-size: 12px;
+    line-height: 16px;
+  }
+}

@@ -1,0 +1,9 @@
+.serviceContainer {
+  max-width: 930px;
+  margin: 0 auto;
+}
+
+.serviceContainer img {
+  max-width: 100%;
+  height: auto;
+}

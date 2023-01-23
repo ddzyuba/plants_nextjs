@@ -1,0 +1,66 @@
+.getQuote {
+  margin-top: 37.5px;
+  position: relative;
+  top: 62.5px;
+}
+
+.container {
+  background: #D9F1E0;
+  border-radius: 10px;
+  padding: 32px 100px;
+  max-width: 1408px;
+  margin: 0 auto;
+}
+
+.heading {
+  color: #212529;
+  font-size: 45px;
+  line-height: 61px;
+  margin: 0;
+}
+
+.headingGreen {
+  color: #00730C;
+}
+
+@media screen and (min-width: 1401px) {
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 271px;
+  }
+}
+
+@media screen and (max-width: 1400px) {
+  .getQuote {
+    margin-top: 3px;
+    top: 97px;
+  }
+
+  .heading {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .btnWraper {
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .getQuote {
+    margin-top: -24.5px;
+    top: 75.5px;
+  }
+
+  .container {
+    padding: 30px 50px;
+  }
+
+  .heading {
+    font-size: 20px;
+    line-height: 27px;
+    margin-bottom: 25px;
+  }
+}
