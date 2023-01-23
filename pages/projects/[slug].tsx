@@ -103,7 +103,7 @@ export default Project;
 // This function gets called at build time
 export async function getStaticPaths() {
   // Call an external API endpoint to get posts
-  const res = await fetch('http://localhost:1337/api/projects');
+  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}/api/projects`);
   const services = await res.json();
 
   // Get the paths we want to pre-render based on posts
@@ -118,10 +118,10 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: StaticProps) {
 
-  const res = await fetch(`http://localhost:1337/api/projects?filters[slug][$eq]=${params.slug}&populate[0]=tags`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}/api/projects?filters[slug][$eq]=${params.slug}&populate[0]=tags`)
   const data = await res.json();
 
-  const res2 = await fetch(`http://localhost:1337/api/projects?populate[0]=image&pagination[pageSize]=4&filters[tags][slug][$in]=${data.data[0].attributes.tags.data[0].attributes.slug}&filters[slug][$notIn]=${params.slug}`)
+  const res2 = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}/api/projects?populate[0]=image&pagination[pageSize]=4&filters[tags][slug][$in]=${data.data[0].attributes.tags.data[0].attributes.slug}&filters[slug][$notIn]=${params.slug}`)
   const relatedProjects = await res2.json();
 
   return {

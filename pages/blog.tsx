@@ -53,7 +53,7 @@ const Blog: NextPage<BlogProps> = ({ data }) => {
 export default Blog;
 
 export async function getStaticProps() {
-  const res = await fetch(`http://localhost:1337/api/posts?pagination[pageSize]=4&populate[0]=image`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}/api/posts?pagination[pageSize]=4&populate[0]=image`)
   const data = await res.json();
 
   return {

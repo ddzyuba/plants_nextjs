@@ -18,7 +18,7 @@ const Contact: NextPage = () => {
   const [status, setStatus] = useState(0);
   const { register, setValue, handleSubmit, formState: { errors } } = useForm<FormData>();
   const onSubmit = handleSubmit(data => {
-    fetch('http://localhost:1337/api/ezforms/submit', {
+    fetch(`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}/api/ezforms/submit`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

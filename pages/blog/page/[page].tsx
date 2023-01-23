@@ -60,7 +60,7 @@ export default BlogPage;
 // This function gets called at build time
 export async function getStaticPaths() {
   // Call an external API endpoint to get posts
-  const res = await fetch('http://localhost:1337/api/posts?pagination[pageSize]=4&populate[0]=image');
+  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}/api/posts?pagination[pageSize]=4&populate[0]=image`);
   const posts = await res.json();
 
   // Get the paths we want to pre-render based on posts
@@ -78,7 +78,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }: StaticProps) {
-  const res = await fetch(`http://localhost:1337/api/posts?pagination[pageSize]=4&pagination[page]=${params.page}&populate[0]=image`)
+  const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}/api/posts?pagination[pageSize]=4&pagination[page]=${params.page}&populate[0]=image`)
   const data = await res.json();
 
   return {
