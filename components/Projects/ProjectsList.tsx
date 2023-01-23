@@ -64,8 +64,6 @@ const ProjectsList = ({ activeTag, activePage, setActivePage }: ProjectsListProp
   if (isLoading) return <p>Loading...</p>
   if (!data) return <p>No profile data</p>
 
-  console.log("data", data);
-
   return (
     <>
       <div className={styles.wrapper}>

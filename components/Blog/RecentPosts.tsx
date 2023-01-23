@@ -27,7 +27,6 @@ type Post = {
 }
 
 const RecentPosts = ({ recentPosts }: Props) => {
-  console.log("recentPosts", recentPosts);
   return (
     <div className={styles.container}>
       {recentPosts.data.map((post: Post) => (
