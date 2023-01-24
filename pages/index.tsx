@@ -62,7 +62,8 @@ export async function getStaticProps() {
       staffData: staffData,
       testimonialsData: testimonialsData,
       faqData: faqData
-    }
+    },
+    revalidate: 10,
   }
 }
 

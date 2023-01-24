@@ -67,7 +67,6 @@ const ServiceList = ({ data }: ServiceListProps): JSX.Element => {
     <section className={styles.serviceList}>
       <div className='side-padding'>
         <div className='container'>
-          <p>Hello</p>
           {data.homePage.data.attributes.dynamicZone.map((item: ComponentLayoutServices) => {
             if (item.__typename === 'ComponentLayoutServices') {
               return (
