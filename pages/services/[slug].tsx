@@ -1,41 +1,22 @@
 import ServiceHero from '../../components/Services/ServiceHero';
 import Content from '../../components/Services/Content';
-import WorkingProcess from '../../components/WorkingProcess';
+import WorkingProcess, { getWorkingProcessData } from '../../components/WorkingProcess';
 import styles from '../../styles/Service.module.css';
 
-type ServiceProps = {
-  data: {
-    data: ServicePropsData[];
-  }
-}
+import {
+  ServiceProps,
+  ServicePropsData,
+  StaticProps
+} from '../../components/types/SingleServicePageTypes';
 
-type ServicePropsData = {
-  id: number;
-  attributes: {
-    title: string;
-    slug: string;
-    excerpt: string;
-    content: string;
-    createdAt: string;
-    updatedAt: string;
-    publishedAt: string;
-  }
-}
-
-type StaticProps = {
-  params: {
-    slug: string;
-  }
-}
-
-const Service = ({ data }: ServiceProps) => {
+const Service = ({ data, workingProcessData }: ServiceProps) => {
   return (
     <div>
       <ServiceHero title={data.data[0].attributes.title} />
       <div className={styles.serviceContainer}>
         <Content content={data.data[0].attributes.content} />
       </div>
-      <WorkingProcess />
+      <WorkingProcess data={workingProcessData} />
     </div>
   );
 }
@@ -63,9 +44,12 @@ export async function getStaticProps({ params }: StaticProps) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}/api/services?filters[slug][$eq]=${params.slug}`)
   const data = await res.json();
 
+  const workingProcessData = await getWorkingProcessData();
+
   return {
     props: {
       data: data,
+      workingProcessData: workingProcessData,
     },
   }
 }
