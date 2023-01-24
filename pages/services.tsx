@@ -44,6 +44,7 @@ export async function getStaticProps() {
       whyChooseUsData: whyChooseUsData,
       workingProcessData: workingProcessData,
       staffData: staffData,
-    }
+    },
+    revalidate: 10,
   }
 }
