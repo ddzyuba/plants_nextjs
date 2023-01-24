@@ -88,14 +88,14 @@ const ServiceList = ({ data }: ServiceListProps): JSX.Element => {
                         >
                           <div className={styles.listItemWrapper}>
                             <div className={styles.col1}>
-                              <Image
+                              <img
                                 src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${el.attributes.icon1.data.attributes.url}`}
                                 alt={el.attributes.icon1.data.attributes.name}
                                 className={styles.itemImg1}
                                 width={70}
                                 height={70}
                               />
-                              <Image
+                              <img
                                 src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${el.attributes.icon2.data.attributes.url}`}
                                 alt={el.attributes.icon1.data.attributes.name}
                                 className={styles.itemImg2}
