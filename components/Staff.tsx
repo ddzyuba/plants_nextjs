@@ -1,39 +1,15 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../styles/Staff.module.css';
 
-type ComponentLayoutStaff = {
-  __typename: string;
-  titleBlack: string;
-  titleGreen: string;
-  text: string;
-  button: {
-    text: string;
-    url: string;
-  }
-  employees: {
-    data: Employee[];
-  }
-}
+import client from '../lib/apolloClient';
 
-type Employee = {
-  attributes: {
-    name: string;
-    job: string;
-    facebook: string;
-    twitter: string;
-    linkedin: string;
-    image: {
-      data: {
-        attributes: {
-          name: string;
-          url: string;
-        }
-      }
-    }
-  }
-}
+import {
+  StaffProps,
+  ComponentLayoutStaff,
+  Employee
+} from '../components/types/StaffTypes';
 
 const GET_STAFF = gql`
   query Staff {
@@ -76,11 +52,15 @@ const GET_STAFF = gql`
   }
 `;
 
-const Staff = (): JSX.Element => {
-  const { loading, error, data } = useQuery(GET_STAFF);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
+export async function getStaffData() {
+  const { data } = await client.query({
+    query: GET_STAFF,
+  });
 
+  return data;
+}
+
+const Staff = ({ data }: StaffProps): JSX.Element => {
   return (
     <div className={styles.staff}>
       <div className='side-padding'>

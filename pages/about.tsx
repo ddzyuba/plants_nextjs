@@ -4,9 +4,11 @@ import AboutHero from '../components/About/AboutHero';
 import LeftImageRightText from '../components/About/LeftImageRightText';
 import Content from '../components/About/Content';
 import Skills from '../components/About/Skills';
-import Staff from '../components/Staff';
+import Staff, { getStaffData } from '../components/Staff';
 
-const About: NextPage = () => {
+import { AboutPageProps } from '../components/types/AboutPageTypes';
+
+const About: NextPage<AboutPageProps> = ({ staffData }) => {
   return (
     <div>
       <Head>
@@ -18,9 +20,19 @@ const About: NextPage = () => {
       <LeftImageRightText />
       <Content />
       <Skills />
-      <Staff />
+      <Staff data={staffData} />
     </div>
   );
 }
 
 export default About;
+
+export async function getStaticProps() {
+  const staffData = await getStaffData();
+
+  return {
+    props: {
+      staffData: staffData,
+    }
+  }
+} 

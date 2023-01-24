@@ -1,40 +1,15 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../styles/ServiceList.module.css';
 
-type ComponentLayoutServices = {
-  __typename: string;
-  titleBlack: string;
-  titleGreen: string;
-  text: string;
-  services: { data: ComponentLayoutServicesData[] }
-}
+import client from '../lib/apolloClient';
 
-type ComponentLayoutServicesData = {
-  attributes: ComponentLayoutServicesAttributes;
-}
-
-type ComponentLayoutServicesAttributes = {
-  excerpt: string;
-  slug: string;
-  title: string;
-  icon1: {
-    data: {
-      attributes: UploadFile
-    }
-  }
-  icon2: {
-    data: {
-      attributes: UploadFile
-    }
-  }
-}
-
-type UploadFile = {
-  name: string;
-  url: string;
-}
+import {
+  ServiceListProps,
+  ComponentLayoutServices,
+  ComponentLayoutServicesData,
+} from '../components/types/ServiceListTypes';
 
 const GET_SERVICES_LIST = gql`
   query ServiceList {
@@ -79,11 +54,15 @@ const GET_SERVICES_LIST = gql`
   }
 `;
 
-const ServiceList = (): JSX.Element => {
-  const { loading, error, data } = useQuery(GET_SERVICES_LIST);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
+export async function getServiceListData() {
+  const { data } = await client.query({
+    query: GET_SERVICES_LIST,
+  });
 
+  return data;
+}
+
+const ServiceList = ({ data }: ServiceListProps): JSX.Element => {
   return (
     <section className={styles.serviceList}>
       <div className='side-padding'>

@@ -1,35 +1,17 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper';
 import styles from '../styles/Testimonials.module.css';
 import 'swiper/css';
 
-type ComponentLayoutTestimonials = {
-  __typename: string;
-  titleBlack: string;
-  titleGreen: string;
-  text: string;
-  testimonials: {
-    data: Testimonial[];
-  }
-}
+import client from '../lib/apolloClient';
 
-type Testimonial = {
-  attributes: {
-    name: string;
-    job: string;
-    content: string;
-    image: {
-      data: {
-        attributes: {
-          name: string;
-          url: string;
-        }
-      }
-    }
-  }
-}
+import {
+  TestimonialsProps,
+  ComponentLayoutTestimonials,
+  Testimonial
+} from '../components/types/TestimonialsTypes';
 
 const GET_TESTIMONIALS = gql`
   query Testimonials {
@@ -66,11 +48,15 @@ const GET_TESTIMONIALS = gql`
   }
 `;
 
-const Testimonials = (): JSX.Element => {
-  const { loading, error, data } = useQuery(GET_TESTIMONIALS);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
+export async function getTestimonialsData() {
+  const { data } = await client.query({
+    query: GET_TESTIMONIALS,
+  });
 
+  return data;
+}
+
+const Testimonials = ({ data }: TestimonialsProps): JSX.Element => {
   return (
     <div className={styles.testimonials}>
       <div className='side-padding'>

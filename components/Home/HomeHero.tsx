@@ -1,9 +1,12 @@
 import Image from 'next/image';
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import styles from '../../styles/HomeHero.module.css';
 import Link from 'next/link';
 
-const GET_HOME_HERO = gql`
+import client from '../../lib/apolloClient';
+import { HomeHeroProps } from '../types/HomeTypes';
+
+export const GET_HOME_HERO = gql`
   query HomeHero {
     homePage {
       data {
@@ -33,12 +36,15 @@ const GET_HOME_HERO = gql`
   }
 `;
 
-const HomeHero = (): JSX.Element => {
-  const { loading, error, data } = useQuery(GET_HOME_HERO);
+export async function getHomeHeroData() {
+  const { data } = await client.query({
+    query: GET_HOME_HERO,
+  });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
+  return data;
+}
 
+const HomeHero = ({ data }: HomeHeroProps): JSX.Element => {
   return (
     <section className={styles.HomeHero}>
       <div className={styles.col2}>

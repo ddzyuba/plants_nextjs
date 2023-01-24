@@ -1,35 +1,14 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import Image from 'next/image';
 import styles from '../styles/WorkingProcess.module.css';
 
-type ComponentLayoutWorkingProcess = {
-  __typename: string;
-  titleBlack: string;
-  titleGreen: string;
-  text: string;
-  process: Process[];
-}
+import client from '../lib/apolloClient';
 
-type Process = {
-  title: string;
-  text: string;
-  icon1: {
-    data: {
-      attributes: {
-        name: string;
-        url: string;
-      }
-    }
-  }
-  icon2: {
-    data: {
-      attributes: {
-        name: string;
-        url: string;
-      }
-    }
-  }
-}
+import {
+  WorkingProcessProps,
+  ComponentLayoutWorkingProcess,
+  Process
+} from '../components/types/WorkingProcessTypes';
 
 const GET_HOME_WORKING_PROCESS = gql`
   query HomeWorkingProcess {
@@ -69,11 +48,15 @@ const GET_HOME_WORKING_PROCESS = gql`
   }
 `;
 
-const WorkingProcess = (): JSX.Element => {
-  const { loading, error, data } = useQuery(GET_HOME_WORKING_PROCESS);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
+export async function getWorkingProcessData() {
+  const { data } = await client.query({
+    query: GET_HOME_WORKING_PROCESS,
+  });
 
+  return data;
+}
+
+const WorkingProcess = ({ data }: WorkingProcessProps): JSX.Element => {
   return (
     <div className={styles.wp}>
       <div className='side-padding'>

@@ -1,30 +1,15 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../styles/WhyChooseUs.module.css';
 
-type ComponentLayoutWhyChooseUs = {
-  __typename: string;
-  heading: string;
-  text: string;
-  button: {
-    text: string;
-    url: string;
-  }
-  textList: TextItem[];
-  image: {
-    data: {
-      attributes: {
-        name: string;
-        url: string;
-      }
-    }
-  }
-}
+import client from '../lib/apolloClient';
 
-type TextItem = {
-  text: string;
-}
+import {
+  WhyChooseUsProps,
+  ComponentLayoutWhyChooseUs,
+  TextItem
+} from '../components/types/WhyChooseUsTypes';
 
 const GET_HOME_WHY_CHOOSE_US = gql`
   query HomeWhyChooseUs {
@@ -58,11 +43,15 @@ const GET_HOME_WHY_CHOOSE_US = gql`
   }
 `;
 
-const WhyChooseUs = (): JSX.Element => {
-  const { loading, error, data } = useQuery(GET_HOME_WHY_CHOOSE_US);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
+export async function getWhyChooseUsData() {
+  const { data } = await client.query({
+    query: GET_HOME_WHY_CHOOSE_US,
+  });
 
+  return data;
+}
+
+const WhyChooseUs = ({ data }: WhyChooseUsProps): JSX.Element => {
   return (
     <div className={styles.wcu}>
       <div className='side-padding'>

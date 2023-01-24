@@ -1,33 +1,16 @@
 import { useState } from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import Image from 'next/image';
 import styles from '../styles/Faq.module.css';
 
-type ComponentLayoutFaq = {
-  __typename: string;
-  titleBlack: string;
-  titleGreen: string;
-  text: string;
-  image: {
-    data: {
-      attributes: {
-        name: string;
-        url: string;
-      }
-    }
-  }
-  faqItems: FaqItem[];
-}
+import client from '../lib/apolloClient';
 
-type FaqItem = {
-  question: string;
-  answer: string;
-}
-
-type FaqListItemProps = {
-  el: FaqItem;
-  i: number;
-}
+import {
+  FaqProps,
+  ComponentLayoutFaq,
+  FaqItem,
+  FaqListItemProps
+} from '../components/types/FaqTypes';
 
 const GET_FAQ = gql`
   query Faq {
@@ -59,6 +42,14 @@ const GET_FAQ = gql`
   }
 `;
 
+export async function getFaqData() {
+  const { data } = await client.query({
+    query: GET_FAQ,
+  });
+
+  return data;
+}
+
 const FaqListItem = ({ el, i }: FaqListItemProps): JSX.Element => {
   let isOpenValue;
   if (i === 0) {
@@ -87,11 +78,7 @@ const FaqListItem = ({ el, i }: FaqListItemProps): JSX.Element => {
   );
 };
 
-const Faq = (): JSX.Element => {
-  const { loading, error, data } = useQuery(GET_FAQ);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
-
+const Faq = ({ data }: FaqProps): JSX.Element => {
   return (
     <div className={styles.faq}>
       <div className='side-padding'>

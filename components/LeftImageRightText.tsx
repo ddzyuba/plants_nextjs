@@ -1,38 +1,16 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import Image from 'next/image';
 import Link from 'next/link';
 import styles from '../styles/LeftImageRightText.module.css';
 
-type ComponentLayoutLeftImageRightText = {
-  __typename: string;
-  titleGreen: string;
-  titleBlack: string;
-  text: string;
-  image: {
-    data: {
-      attributes: UploadFile;
-    }
-  }
-  smallDetails: SmallDetail[];
-  button: {
-    text: string;
-    url: string;
-  }
-}
+import client from '../lib/apolloClient';
 
-type SmallDetail = {
-  text: string;
-  image: {
-    data: {
-      attributes: UploadFile;
-    }
-  }
-}
-
-type UploadFile = {
-  name: string;
-  url: string;
-}
+import {
+  LeftImageRightTextDataProps,
+  ComponentLayoutLeftImageRightText,
+  SmallDetail,
+  UploadFile
+} from '../components/types/LeftImageRightTextTypes';
 
 const GET_LEFT_IMAGE_RIGHT_TEXT = gql`
   query HomeLeftImageRightText {
@@ -76,11 +54,15 @@ const GET_LEFT_IMAGE_RIGHT_TEXT = gql`
   }
 `;
 
-const LeftImageRightText = (): JSX.Element => {
-  const { loading, error, data } = useQuery(GET_LEFT_IMAGE_RIGHT_TEXT);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
+export async function getLeftImageRightTextData() {
+  const { data } = await client.query({
+    query: GET_LEFT_IMAGE_RIGHT_TEXT,
+  });
 
+  return data;
+}
+
+const LeftImageRightText = ({ data }: LeftImageRightTextDataProps): JSX.Element => {
   return (
     <div className={styles.lirt}>
       <div className='side-padding'>
