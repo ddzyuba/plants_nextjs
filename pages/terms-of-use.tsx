@@ -20,7 +20,7 @@ const GET_TERMS_OF_USE = gql`
 const TermsOfUse: NextPage = () => {
   const { loading, error, data } = useQuery(GET_TERMS_OF_USE);
 
-  if (loading) return <p>Loading..</p>;
+  if (loading) return <p>Loading...</p>;
   if (error) return <p>Error : {error.message}</p>;
 
   return (
