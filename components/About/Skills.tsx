@@ -69,7 +69,7 @@ const Skills = (): JSX.Element => {
                 <Image
                   width={601}
                   height={741}
-                  src={`http://localhost:1337${data.aboutUsPage.data.attributes.skills.image.data.attributes.url}`}
+                  src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${data.aboutUsPage.data.attributes.skills.image.data.attributes.url}`}
                   alt={data.aboutUsPage.data.attributes.skills.image.data.attributes.name}
                   className={styles.image}
                 />

@@ -68,7 +68,7 @@ const RelatedProjects = ({ relatedProjects }: RelatedProjectsProps) => {
         {relatedProjects.data.map((item: Project) => (
           <div className={styles.item} key={item.id}>
             <Image
-              src={`http://localhost:1337${item.attributes.image.data.attributes.url}`}
+              src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${item.attributes.image.data.attributes.url}`}
               alt={item.attributes.image.data.attributes.name}
               width={330}
               height={259}

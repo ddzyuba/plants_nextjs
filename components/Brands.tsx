@@ -77,7 +77,7 @@ const Brands = (): JSX.Element => {
                     {item.brands.data.map((el: UploadImage, i: number) => (
                       <SwiperSlide key={i} className={styles.item}>
                         <Image
-                          src={`http://localhost:1337${el.attributes.url}`}
+                          src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${el.attributes.url}`}
                           alt={el.attributes.name}
                           className={styles.image}
                           width={202}

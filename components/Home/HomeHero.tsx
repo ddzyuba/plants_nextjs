@@ -43,7 +43,7 @@ const HomeHero = (): JSX.Element => {
     <section className={styles.HomeHero}>
       <div className={styles.col2}>
         <Image
-          src={`http://localhost:1337${data.homePage.data.attributes.heroHome.image.data.attributes.url}`}
+          src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${data.homePage.data.attributes.heroHome.image.data.attributes.url}`}
           alt={data.homePage.data.attributes.heroHome.image.data.attributes.name}
           className={styles.imgLg}
           fill

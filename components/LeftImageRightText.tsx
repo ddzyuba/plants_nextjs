@@ -92,7 +92,7 @@ const LeftImageRightText = (): JSX.Element => {
                   <div className={styles.wrapper}>
                     <div className={styles.col1}>
                       <Image
-                        src={`http://localhost:1337${item.image.data.attributes.url}`}
+                        src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${item.image.data.attributes.url}`}
                         alt={item.image.data.attributes.name}
                         className={styles.col1Img}
                         fill
@@ -109,7 +109,7 @@ const LeftImageRightText = (): JSX.Element => {
                           {item.smallDetails.map((el: SmallDetail) => (
                             <div key={el.text} className={styles.detailItem}>
                               <Image
-                                src={`http://localhost:1337${el.image.data.attributes.url}`}
+                                src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${el.image.data.attributes.url}`}
                                 alt={el.image.data.attributes.name}
                                 width={67}
                                 height={67}

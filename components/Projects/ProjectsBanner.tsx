@@ -54,7 +54,7 @@ const ProjectsBanner = () => {
       </div>
       <div className={styles.col2}>
         <Image
-          src={`http://localhost:1337${data.projectsPage.data.attributes.Banner.image.data.attributes.url}`}
+          src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${data.projectsPage.data.attributes.Banner.image.data.attributes.url}`}
           alt={data.projectsPage.data.attributes.Banner.image.data.attributes.name}
           className={styles.image}
           width={962}

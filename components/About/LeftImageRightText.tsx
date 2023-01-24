@@ -65,7 +65,7 @@ const LeftImageRightText = (): JSX.Element => {
           <div className={styles.wrapper}>
             <div className={styles.col1}>
               <Image
-                src={`http://localhost:1337${data.aboutUsPage.data.attributes.leftImageRightText.image.data.attributes.url}`}
+                src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${data.aboutUsPage.data.attributes.leftImageRightText.image.data.attributes.url}`}
                 alt={data.aboutUsPage.data.attributes.leftImageRightText.image.data.attributes.name}
                 className={styles.col1Img}
                 fill
@@ -82,7 +82,7 @@ const LeftImageRightText = (): JSX.Element => {
                   {data.aboutUsPage.data.attributes.leftImageRightText.smallDetails.map((el: SmallDetail) => (
                     <div key={el.text} className={styles.detailItem}>
                       <Image
-                        src={`http://localhost:1337${el.image.data.attributes.url}`}
+                        src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${el.image.data.attributes.url}`}
                         alt={el.image.data.attributes.name}
                         width={67}
                         height={67}

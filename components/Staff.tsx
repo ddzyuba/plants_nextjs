@@ -101,7 +101,7 @@ const Staff = (): JSX.Element => {
                     {item.employees.data.map((el: Employee, i: number) => (
                       <div key={i} className={styles.person}>
                         <Image
-                          src={`http://localhost:1337${el.attributes.image.data.attributes.url}`}
+                          src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${el.attributes.image.data.attributes.url}`}
                           alt={el.attributes.image.data.attributes.name}
                           className={styles.image}
                           fill

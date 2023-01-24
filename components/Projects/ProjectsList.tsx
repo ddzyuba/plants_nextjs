@@ -44,11 +44,11 @@ const ProjectsList = ({ activeTag, activePage, setActivePage }: ProjectsListProp
   let url = '';
   switch (activeTag) {
     case 'all':
-      url = `http://localhost:1337/api/projects?populate[0]=image&pagination[pageSize]=4&pagination[page]=${activePage}`;
+      url = `${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}/api/projects?populate[0]=image&pagination[pageSize]=4&pagination[page]=${activePage}`;
       break;
 
     default:
-      url = `http://localhost:1337/api/projects?populate[0]=image&pagination[pageSize]=4&pagination[page]=${activePage}&filters[tags][slug][$in]=${activeTag}`;
+      url = `${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}/api/projects?populate[0]=image&pagination[pageSize]=4&pagination[page]=${activePage}&filters[tags][slug][$in]=${activeTag}`;
   }
 
   useEffect(() => {
@@ -70,7 +70,7 @@ const ProjectsList = ({ activeTag, activePage, setActivePage }: ProjectsListProp
         {data.data.map((item: Project) => (
           <div className={styles.item} key={item.id}>
             <Image
-              src={`http://localhost:1337${item.attributes.image.data.attributes.url}`}
+              src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${item.attributes.image.data.attributes.url}`}
               alt={item.attributes.image.data.attributes.name}
               width={330}
               height={259}

@@ -120,7 +120,7 @@ const Faq = (): JSX.Element => {
                     <div className={styles.col2}>
                       <div className={styles.col2Wrapper}>
                         <Image
-                          src={`http://localhost:1337${item.image.data.attributes.url}`}
+                          src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${item.image.data.attributes.url}`}
                           alt={item.image.data.attributes.name}
                           className={styles.image}
                           width={507}

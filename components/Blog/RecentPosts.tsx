@@ -35,7 +35,7 @@ const RecentPosts = ({ recentPosts }: Props) => {
             className={styles.image}
             width={106}
             height={75}
-            src={`http://localhost:1337${post.attributes.image.data.attributes.url}`}
+            src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${post.attributes.image.data.attributes.url}`}
             alt={post.attributes.image.data.attributes.name}
           />
           <div className={styles.itemWrapper}>

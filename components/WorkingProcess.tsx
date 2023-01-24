@@ -94,14 +94,14 @@ const WorkingProcess = (): JSX.Element => {
                       <div key={i} className={styles.listItem}>
                         <div className={styles.listItemTop}>
                           <Image
-                            src={`http://localhost:1337${el.icon1.data.attributes.url}`}
+                            src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${el.icon1.data.attributes.url}`}
                             alt={el.icon1.data.attributes.name}
                             className={styles.listItemImg1}
                             width={70}
                             height={70}
                           />
                           <Image
-                            src={`http://localhost:1337${el.icon2.data.attributes.url}`}
+                            src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${el.icon2.data.attributes.url}`}
                             alt={el.icon1.data.attributes.name}
                             className={styles.listItemImg2}
                             width={70}
