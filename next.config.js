@@ -13,7 +13,6 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'plants-strapi-ysfz5.ondigitalocean.app',
-        port: '',
         pathname: '/uploads/**',
       },
     ],
