@@ -1,16 +1,12 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import Link from 'next/link';
 import styles from '../styles/GetQuote.module.css';
+import client from '../lib/apolloClient';
 
-type ComponentLayoutGetQuote = {
-  __typename: string;
-  titleBlack: string;
-  titleGreen: string;
-  button: {
-    text: string;
-    url: string;
-  }
-}
+import {
+  GetQuoteProps,
+  ComponentLayoutGetQuote
+} from '../components/types/GetQuoteTypes';
 
 const GET_QUOTE = gql`
   query GetQuote {
@@ -33,11 +29,15 @@ const GET_QUOTE = gql`
   }
 `;
 
-const GetQuote = (): JSX.Element => {
-  const { loading, error, data } = useQuery(GET_QUOTE);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
+export async function getQuoteData() {
+  const { data } = await client.query({
+    query: GET_QUOTE,
+  });
 
+  return data;
+}
+
+const GetQuote = ({ data }: GetQuoteProps): JSX.Element => {
   return (
     <div className={styles.getQuote}>
       {data.homePage.data.attributes.dynamicZone.map((item: ComponentLayoutGetQuote) => {

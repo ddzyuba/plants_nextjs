@@ -1,62 +1,31 @@
+import MobileMenu from "../../components/MobileMenu";
+import HeaderMenu, { getHeaderMenuData } from "../../components/HeaderMenu";
 import ServiceHero from '../../components/Services/ServiceHero';
 import Content from '../../components/Services/Content';
 import RelatedProjects from '../../components/Projects/RelatedProjects';
+import Brands, { getBrandsData } from '../../components/Brands';
+import GetQuote, { getQuoteData } from '../../components/GetQuote';
+import FooterMenu, { getFooterMenuData } from '../../components/FooterMenu';
 import styles from '../../styles/Project.module.css';
 
-type ProjectProps = {
-  data: {
-    data: ProjectPropsData[];
-  };
-  relatedProjects: {
-    data: ProjectPropsData[];
-  }
-}
+import {
+  ProjectProps,
+  ProjectPropsData,
+  StaticProps
+} from '../../components/types/SingleProjectTypes';
 
-type ProjectPropsData = {
-  id: number;
-  attributes: {
-    title: string;
-    slug: string;
-    excerpt: string;
-    content: string;
-    createdAt: string;
-    updatedAt: string;
-    publishedAt: string;
-    client: string;
-    location: string;
-    start_date: string;
-    end_date: string;
-    price: number;
-    tags: {
-      data: TagData[];
-    }
-    image: {
-      data: {
-        attributes: {
-          name: string;
-          url: string;
-        }
-      }
-    }
-  }
-}
-
-type TagData = {
-  attributes: {
-    slug: string;
-  }
-}
-
-type StaticProps = {
-  params: {
-    slug: string;
-  }
-}
-
-const Project = ({ data, relatedProjects }: ProjectProps) => {
+const Project = ({
+  data,
+  relatedProjects,
+  headerMenuData,
+  brandsData,
+  quoteData,
+  footerMenuData
+}: ProjectProps) => {
 
   return (
     <>
+      <HeaderMenu data={headerMenuData} />
       <ServiceHero title={data.data[0].attributes.title} />
       <div className='side-padding'>
         <div className='container'>
@@ -94,6 +63,10 @@ const Project = ({ data, relatedProjects }: ProjectProps) => {
           <RelatedProjects relatedProjects={relatedProjects} />
         </div>
       </div>
+      <Brands data={brandsData} />
+      <GetQuote data={quoteData} />
+      <FooterMenu data={footerMenuData} />
+      <MobileMenu data={headerMenuData} />
     </>
   );
 }
@@ -124,10 +97,19 @@ export async function getStaticProps({ params }: StaticProps) {
   const res2 = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}/api/projects?populate[0]=image&pagination[pageSize]=4&filters[tags][slug][$in]=${data.data[0].attributes.tags.data[0].attributes.slug}&filters[slug][$notIn]=${params.slug}`)
   const relatedProjects = await res2.json();
 
+  const headerMenuData = await getHeaderMenuData();
+  const brandsData = await getBrandsData();
+  const quoteData = await getQuoteData();
+  const footerMenuData = await getFooterMenuData();
+
   return {
     props: {
       data,
-      relatedProjects
+      relatedProjects,
+      headerMenuData,
+      brandsData,
+      quoteData,
+      footerMenuData
     },
   }
 }

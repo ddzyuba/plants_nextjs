@@ -1,6 +1,11 @@
+import MobileMenu from "../../components/MobileMenu";
+import HeaderMenu, { getHeaderMenuData } from "../../components/HeaderMenu";
 import ServiceHero from '../../components/Services/ServiceHero';
 import Content from '../../components/Services/Content';
 import WorkingProcess, { getWorkingProcessData } from '../../components/WorkingProcess';
+import Brands, { getBrandsData } from '../../components/Brands';
+import GetQuote, { getQuoteData } from '../../components/GetQuote';
+import FooterMenu, { getFooterMenuData } from '../../components/FooterMenu';
 import styles from '../../styles/Service.module.css';
 
 import {
@@ -9,14 +14,26 @@ import {
   StaticProps
 } from '../../components/types/SingleServicePageTypes';
 
-const Service = ({ data, workingProcessData }: ServiceProps) => {
+const Service = ({
+  data,
+  workingProcessData,
+  headerMenuData,
+  brandsData,
+  quoteData,
+  footerMenuData
+}: ServiceProps) => {
   return (
     <div>
+      <HeaderMenu data={headerMenuData} />
       <ServiceHero title={data.data[0].attributes.title} />
       <div className={styles.serviceContainer}>
         <Content content={data.data[0].attributes.content} />
       </div>
       <WorkingProcess data={workingProcessData} />
+      <Brands data={brandsData} />
+      <GetQuote data={quoteData} />
+      <FooterMenu data={footerMenuData} />
+      <MobileMenu data={headerMenuData} />
     </div>
   );
 }
@@ -45,11 +62,19 @@ export async function getStaticProps({ params }: StaticProps) {
   const data = await res.json();
 
   const workingProcessData = await getWorkingProcessData();
+  const headerMenuData = await getHeaderMenuData();
+  const brandsData = await getBrandsData();
+  const quoteData = await getQuoteData();
+  const footerMenuData = await getFooterMenuData();
 
   return {
     props: {
       data: data,
       workingProcessData: workingProcessData,
+      headerMenuData: headerMenuData,
+      brandsData: brandsData,
+      quoteData: quoteData,
+      footerMenuData: footerMenuData
     },
   }
 }

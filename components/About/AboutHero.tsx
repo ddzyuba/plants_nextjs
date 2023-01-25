@@ -1,5 +1,8 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
+import client from '../../lib/apolloClient';
 import styles from '../../styles/AboutHero.module.css';
+
+import { AboutHeroProps } from '../../components/types/AboutPageTypes';
 
 const GET_ABOUT_HERO = gql`
   query AboutPageHero {
@@ -21,12 +24,15 @@ const GET_ABOUT_HERO = gql`
   }
 `;
 
-const AboutHero = () => {
-  const { loading, error, data } = useQuery(GET_ABOUT_HERO);
+export async function getAboutHeroData() {
+  const { data } = await client.query({
+    query: GET_ABOUT_HERO,
+  });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
+  return data;
+}
 
+const AboutHero = ({ data }: AboutHeroProps) => {
   return (
     <div className={styles.aboutHero}>
       <div className={styles.container}>

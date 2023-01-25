@@ -2,19 +2,25 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import MobileMenu from "../components/MobileMenu";
+import HeaderMenu, { getHeaderMenuData } from "../components/HeaderMenu";
 import ServiceHero from '../components/Services/ServiceHero';
+import Brands, { getBrandsData } from '../components/Brands';
+import GetQuote, { getQuoteData } from '../components/GetQuote';
+import FooterMenu, { getFooterMenuData } from '../components/FooterMenu';
 import styles from '../styles/Contact.module.css';
 
-type FormData = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: string;
-  subject: string;
-  message: string;
-};
+import {
+  ContactPageProps,
+  FormData
+} from '../components/types/ContactPageTypes';
 
-const Contact: NextPage = () => {
+const Contact: NextPage<ContactPageProps> = ({
+  headerMenuData,
+  brandsData,
+  quoteData,
+  footerMenuData
+}) => {
   const [status, setStatus] = useState(0);
   const { register, setValue, handleSubmit, formState: { errors } } = useForm<FormData>();
   const onSubmit = handleSubmit(data => {
@@ -44,6 +50,7 @@ const Contact: NextPage = () => {
         <meta name="description" content="Plants" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <HeaderMenu data={headerMenuData} />
       <ServiceHero title='Contact Us' />
       <div className='side-padding'>
         <div className='container'>
@@ -115,8 +122,29 @@ const Contact: NextPage = () => {
           </div>
         </div>
       </div>
+      <Brands data={brandsData} />
+      <GetQuote data={quoteData} />
+      <FooterMenu data={footerMenuData} />
+      <MobileMenu data={headerMenuData} />
     </div>
   );
 }
 
 export default Contact;
+
+export async function getStaticProps() {
+  const headerMenuData = await getHeaderMenuData();
+  const brandsData = await getBrandsData();
+  const quoteData = await getQuoteData();
+  const footerMenuData = await getFooterMenuData();
+
+  return {
+    props: {
+      headerMenuData: headerMenuData,
+      brandsData: brandsData,
+      quoteData: quoteData,
+      footerMenuData: footerMenuData
+    },
+    revalidate: 10,
+  }
+}

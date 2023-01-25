@@ -1,16 +1,15 @@
+import { useContext } from "react";
+import AppContext from "../components/AppContext";
 import Image from 'next/image';
 import Link from 'next/link';
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import styles from '../styles/HeaderMenu.module.css';
 
-type MenuItem = {
-  text: string;
-  url: string;
-}
-
-type HeaderMenuProps = {
-  toggleIsMenuOpen(): void;
-}
+import client from '../lib/apolloClient';
+import {
+  HeaderMenuProps,
+  MenuItem
+} from '../components/types/HeaderMenuTypes';
 
 const GET_HEADER_MENU = gql`
   query HeaderMenu {
@@ -29,11 +28,16 @@ const GET_HEADER_MENU = gql`
   }
 `;
 
-const HeaderMenu = ({ toggleIsMenuOpen }: HeaderMenuProps): JSX.Element => {
-  const { loading, error, data } = useQuery(GET_HEADER_MENU);
+export async function getHeaderMenuData() {
+  const { data } = await client.query({
+    query: GET_HEADER_MENU,
+  });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
+  return data;
+}
+
+const HeaderMenu = ({ data }: HeaderMenuProps): JSX.Element => {
+  const value = useContext(AppContext);
 
   return (
     <div className='side-padding'>
@@ -42,7 +46,7 @@ const HeaderMenu = ({ toggleIsMenuOpen }: HeaderMenuProps): JSX.Element => {
           <Link href="/">
             <Image src="/logo.png" alt="Plants Logo" width={120} height={55} />
           </Link>
-          <button className={styles.mobileOpen} onClick={toggleIsMenuOpen}>
+          <button className={styles.mobileOpen} onClick={value?.toggleIsMenuOpen}>
             <span className={styles.mobileOpenIcon}></span>
           </button>
           <div className={styles.wrapperInner}>

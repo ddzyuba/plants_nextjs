@@ -1,35 +1,41 @@
-import { WorkingProcessData } from './WorkingProcessTypes';
 import { HeaderMenuData } from './HeaderMenuTypes';
 import { BrandsData } from './BrandsTypes';
 import { GetQuoteData } from './GetQuoteTypes';
 import { FooterMenuData } from './FooterMenuTypes';
 
-export type ServiceProps = {
+export type StaticProps = {
+  params: {
+    slug: string;
+  }
+}
+
+export type PostProps = {
   data: {
-    data: ServicePropsData[];
+    data: Post[];
   };
-  workingProcessData: WorkingProcessData;
+  recentPosts: {
+    data: Post[];
+  };
   headerMenuData: HeaderMenuData;
   brandsData: BrandsData;
   quoteData: GetQuoteData;
   footerMenuData: FooterMenuData;
 }
 
-export type ServicePropsData = {
+export type Post = {
   id: number;
   attributes: {
     title: string;
     slug: string;
-    excerpt: string;
     content: string;
-    createdAt: string;
-    updatedAt: string;
     publishedAt: string;
-  }
-}
-
-export type StaticProps = {
-  params: {
-    slug: string;
+    image: {
+      data: {
+        attributes: {
+          name: string;
+          url: string;
+        }
+      }
+    }
   }
 }

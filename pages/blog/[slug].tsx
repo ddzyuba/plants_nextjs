@@ -1,44 +1,30 @@
+import MobileMenu from "../../components/MobileMenu";
+import HeaderMenu, { getHeaderMenuData } from "../../components/HeaderMenu";
 import ServiceHero from '../../components/Services/ServiceHero';
 import Content from '../../components/Services/Content';
 import RecentPosts from '../../components/Blog/RecentPosts';
+import Brands, { getBrandsData } from '../../components/Brands';
+import GetQuote, { getQuoteData } from '../../components/GetQuote';
+import FooterMenu, { getFooterMenuData } from '../../components/FooterMenu';
 import styles from '../../styles/Post.module.css';
 
-type StaticProps = {
-  params: {
-    slug: string;
-  }
-}
+import {
+  StaticProps,
+  PostProps,
+  Post
+} from '../../components/types/BlogPostTypes';
 
-type PostProps = {
-  data: {
-    data: Post[];
-  };
-  recentPosts: {
-    data: Post[];
-  }
-}
-
-type Post = {
-  id: number;
-  attributes: {
-    title: string;
-    slug: string;
-    content: string;
-    publishedAt: string;
-    image: {
-      data: {
-        attributes: {
-          name: string;
-          url: string;
-        }
-      }
-    }
-  }
-}
-
-const Post = ({ data, recentPosts }: PostProps) => {
+const Post = ({
+  data,
+  recentPosts,
+  headerMenuData,
+  brandsData,
+  quoteData,
+  footerMenuData
+}: PostProps) => {
   return (
     <>
+      <HeaderMenu data={headerMenuData} />
       <ServiceHero title={data.data[0].attributes.title} />
       <div className='side-padding'>
         <div className='container'>
@@ -55,6 +41,10 @@ const Post = ({ data, recentPosts }: PostProps) => {
           </div>
         </div>
       </div>
+      <Brands data={brandsData} />
+      <GetQuote data={quoteData} />
+      <FooterMenu data={footerMenuData} />
+      <MobileMenu data={headerMenuData} />
     </>
   );
 };
@@ -85,10 +75,19 @@ export async function getStaticProps({ params }: StaticProps) {
   const res2 = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}/api/posts?populate[0]=image&pagination[pageSize]=10&filters[slug][$notIn]=${params.slug}`)
   const recentPosts = await res2.json();
 
+  const headerMenuData = await getHeaderMenuData();
+  const brandsData = await getBrandsData();
+  const quoteData = await getQuoteData();
+  const footerMenuData = await getFooterMenuData();
+
   return {
     props: {
       data,
-      recentPosts
+      recentPosts,
+      headerMenuData,
+      brandsData,
+      quoteData,
+      footerMenuData
     },
   }
 }

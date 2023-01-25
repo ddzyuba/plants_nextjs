@@ -1,6 +1,8 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import Image from 'next/image';
+import client from '../../lib/apolloClient';
 import styles from '../../styles/ProjectsBanner.module.css';
+import { ProjectsBannerProps } from '../../components/types/ProjectsPageTypes';
 
 const GET_BANNER = gql`
   query GetProjectsPage {
@@ -29,11 +31,15 @@ const GET_BANNER = gql`
   }
 `;
 
-const ProjectsBanner = () => {
-  const { loading, error, data } = useQuery(GET_BANNER);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
+export async function getProjectsBannerData() {
+  const { data } = await client.query({
+    query: GET_BANNER,
+  });
 
+  return data;
+}
+
+const ProjectsBanner = ({ data }: ProjectsBannerProps) => {
   return (
     <div className={styles.banner}>
       <div className={styles.col1}>

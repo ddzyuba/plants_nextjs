@@ -1,3 +1,4 @@
+import { HeaderMenuData } from './HeaderMenuTypes';
 import { ServiceListData } from './ServiceListTypes';
 import { LeftImageRightTextData } from './LeftImageRightTextTypes';
 import { WhyChooseUsData } from './WhyChooseUsTypes';
@@ -5,6 +6,9 @@ import { WorkingProcessData } from './WorkingProcessTypes';
 import { StaffData } from './StaffTypes';
 import { TestimonialsData } from './TestimonialsTypes';
 import { FaqData } from './FaqTypes';
+import { BrandsData } from './BrandsTypes';
+import { GetQuoteData } from './GetQuoteTypes';
+import { FooterMenuData } from './FooterMenuTypes';
 
 export type HomeHeroProps = {
   data: HomeHeroData;
@@ -38,6 +42,7 @@ export type HomeHeroData = {
 }
 
 export type HomePageProps = {
+  headerMenuData: HeaderMenuData;
   homeHeroData: HomeHeroData;
   serviceListData: ServiceListData;
   leftImageRightTextData: LeftImageRightTextData;
@@ -46,4 +51,7 @@ export type HomePageProps = {
   staffData: StaffData;
   testimonialsData: TestimonialsData;
   faqData: FaqData;
+  brandsData: BrandsData;
+  quoteData: GetQuoteData;
+  footerMenuData: FooterMenuData;
 }

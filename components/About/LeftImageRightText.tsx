@@ -1,20 +1,12 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import Image from 'next/image';
+import client from '../../lib/apolloClient';
 import styles from '../../styles/LeftImageRightText.module.css';
 
-type SmallDetail = {
-  text: string;
-  image: {
-    data: {
-      attributes: UploadFile;
-    }
-  }
-}
-
-type UploadFile = {
-  name: string;
-  url: string;
-}
+import {
+  LeftImageRightTextProps,
+  SmallDetail
+} from '../../components/types/AboutPageTypes';
 
 const GET_LEFT_IMAGE_RIGHT_TEXT = gql`
   query AboutPageLeftImageRightText {
@@ -52,12 +44,15 @@ const GET_LEFT_IMAGE_RIGHT_TEXT = gql`
   }
 `;
 
-const LeftImageRightText = (): JSX.Element => {
-  const { loading, error, data } = useQuery(GET_LEFT_IMAGE_RIGHT_TEXT);
+export async function getLeftImageRightTextData() {
+  const { data } = await client.query({
+    query: GET_LEFT_IMAGE_RIGHT_TEXT,
+  });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
+  return data;
+}
 
+const LeftImageRightText = ({ data }: LeftImageRightTextProps): JSX.Element => {
   return (
     <div className={styles.lirt}>
       <div className='side-padding'>

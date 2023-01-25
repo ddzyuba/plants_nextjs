@@ -1,22 +1,16 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import styles from '../styles/Brands.module.css';
 import 'swiper/css';
 
-type ComponentLayoutBrands = {
-  __typename: string;
-  brands: {
-    data: UploadImage[];
-  }
-}
+import client from '../lib/apolloClient';
 
-type UploadImage = {
-  attributes: {
-    name: string;
-    url: string;
-  }
-}
+import {
+  BrandsProps,
+  ComponentLayoutBrands,
+  UploadImage
+} from '../components/types/BrandsTypes';
 
 const GET_BRANDS = gql`
   query GetBrands {
@@ -41,11 +35,15 @@ const GET_BRANDS = gql`
   }
 `;
 
-const Brands = (): JSX.Element => {
-  const { loading, error, data } = useQuery(GET_BRANDS);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
+export async function getBrandsData() {
+  const { data } = await client.query({
+    query: GET_BRANDS,
+  });
 
+  return data;
+}
+
+const Brands = ({ data }: BrandsProps): JSX.Element => {
   return (
     <div className={styles.brands}>
       <div className='side-padding'>

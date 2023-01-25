@@ -1,11 +1,12 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import Image from 'next/image';
+import client from '../../lib/apolloClient';
 import styles from '../../styles/Skills.module.css';
 
-type Skill = {
-  skillName: string;
-  skillPercentage: number;
-}
+import {
+  SkillProps,
+  Skill
+} from '../../components/types/AboutPageTypes';
 
 const GET_SKILLS = gql`
   query AboutPageSkills {
@@ -34,12 +35,15 @@ const GET_SKILLS = gql`
   }
 `;
 
-const Skills = (): JSX.Element => {
-  const { loading, error, data } = useQuery(GET_SKILLS);
+export async function getSkillsData() {
+  const { data } = await client.query({
+    query: GET_SKILLS,
+  });
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
+  return data;
+}
 
+const Skills = ({ data }: SkillProps): JSX.Element => {
   return (
     <div className={styles.skills}>
       <div className='side-padding'>

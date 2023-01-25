@@ -1,9 +1,8 @@
 import { gql } from '@apollo/client';
 import Image from 'next/image';
 import Link from 'next/link';
-import styles from '../styles/ServiceList.module.css';
-
 import client from '../lib/apolloClient';
+import styles from '../styles/ServiceList.module.css';
 
 import {
   ServiceListProps,

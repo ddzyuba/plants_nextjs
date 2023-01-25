@@ -1,48 +1,24 @@
+import { useContext } from "react";
+import AppContext from "../components/AppContext";
 import Image from 'next/image';
 import Link from 'next/link';
-import { gql, useQuery } from '@apollo/client';
 import styles from '../styles/MobileMenu.module.css';
 
-type MenuItem = {
-  text: string;
-  url: string;
-}
+import {
+  HeaderMenuProps,
+  MenuItem
+} from '../components/types/HeaderMenuTypes';
 
-type MobileMenuProps = {
-  isMenuOpen: boolean;
-  toggleIsMenuOpen(): void;
-}
-
-const GET_MOBILE_MENU = gql`
-  query MobileMenu {
-    headerMenu {
-      data {
-        attributes {
-          HeaderDynamicMenu {
-            ...on ComponentLayoutLink {
-              text
-              url
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
-const MobileMenu = ({ isMenuOpen, toggleIsMenuOpen }: MobileMenuProps): JSX.Element => {
-  const { loading, error, data } = useQuery(GET_MOBILE_MENU);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
+const MobileMenu = ({ data }: HeaderMenuProps): JSX.Element => {
+  const value = useContext(AppContext);
 
   return (
-    <div className={`${styles.mobileNav} ${isMenuOpen ? styles.mobileNavOpen : ''}`}>
+    <div className={`${styles.mobileNav} ${value?.isMenuOpen ? styles.mobileNavOpen : ''}`}>
       <div className={styles.mobileNavWrapper}>
-        <Link href="/" onClick={toggleIsMenuOpen}>
+        <Link href="/" onClick={value?.toggleIsMenuOpen}>
           <Image src="/logo.png" alt="Plants Logo" width={120} height={55} />
         </Link>
-        <button className={styles.mobileClose} onClick={toggleIsMenuOpen} />
+        <button className={styles.mobileClose} onClick={value?.toggleIsMenuOpen} />
       </div>
       <nav>
         <ul className={styles.mobileNavList}>
@@ -50,7 +26,7 @@ const MobileMenu = ({ isMenuOpen, toggleIsMenuOpen }: MobileMenuProps): JSX.Elem
             <li key={item.text} className={styles.mobileNavListItem}>
               <Link
                 href={item.url}
-                onClick={toggleIsMenuOpen}
+                onClick={value?.toggleIsMenuOpen}
               >
                 {item.text}
               </Link>

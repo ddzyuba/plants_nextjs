@@ -1,11 +1,12 @@
 import Link from 'next/link';
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 import styles from '../styles/FooterMenu.module.css';
+import client from '../lib/apolloClient';
 
-type MenuItem = {
-  text: string;
-  url: string;
-}
+import {
+  FooterMenuProps,
+  MenuItem
+} from '../components/types/FooterMenuTypes';
 
 const GET_FOOTER_MENU = gql`
   query FooterMenu {
@@ -36,11 +37,15 @@ const GET_FOOTER_MENU = gql`
     }
 `;
 
-const FooterMenu = (): JSX.Element => {
-  const { loading, error, data } = useQuery(GET_FOOTER_MENU);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error : {error.message}</p>;
+export async function getFooterMenuData() {
+  const { data } = await client.query({
+    query: GET_FOOTER_MENU,
+  });
 
+  return data;
+}
+
+const FooterMenu = ({ data }: FooterMenuProps): JSX.Element => {
   return (
     <div className={styles.footerMenu}>
       <div className='side-padding'>
