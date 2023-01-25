@@ -95,7 +95,7 @@ const Testimonials = ({ data }: TestimonialsProps): JSX.Element => {
                         <SwiperSlide key={i}>
                           <div className={styles.listItem}>
                             <Image
-                              src={`http://localhost:1337${el.attributes.image.data.attributes.url}`}
+                              src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${el.attributes.image.data.attributes.url}`}
                               alt={el.attributes.image.data.attributes.name}
                               className={styles.image}
                               width={193}
