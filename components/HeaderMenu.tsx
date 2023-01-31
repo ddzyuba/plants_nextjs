@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useRouter } from 'next/router';
 import AppContext from "../components/AppContext";
 import Image from 'next/image';
 import Link from 'next/link';
@@ -41,6 +42,7 @@ export async function getHeaderMenuData() {
 
 const HeaderMenu = ({ data }: HeaderMenuProps): JSX.Element => {
   const value = useContext(AppContext);
+  const router = useRouter();
 
   return (
     <>
@@ -58,7 +60,10 @@ const HeaderMenu = ({ data }: HeaderMenuProps): JSX.Element => {
                 <nav>
                   <ul className={styles.list}>
                     {data.headerMenu.data.attributes.HeaderDynamicMenu.map((item: MenuItem) => (
-                      <li key={item.text} className={styles.listItem}>
+                      <li 
+                        key={item.text} 
+                        className={`${styles.listItem} ${router.pathname === item.url ? styles.listItemActive : ''}`}
+                      >
                         <Link href={item.url}>{item.text}</Link>
                       </li>
                     ))}

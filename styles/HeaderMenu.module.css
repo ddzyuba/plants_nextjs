@@ -25,10 +25,13 @@
 
 .listItem a {
   color: #212529;
-  /*font-family: 'Nunito';*/
   font-weight: 700;
   font-size: 16px;
   line-height: 20px;
+}
+
+.listItemActive a {
+  color: #00730C;
 }
 
 .listItem:last-of-type {
