@@ -43,10 +43,6 @@
   transition: background .5s;
 }
 
-.listItem:hover {
-  background: #00730C;
-}
-
 .listItemTop {
   display: flex;
   justify-content: space-between;
@@ -75,24 +71,6 @@
   font-size: 18px;
   line-height: 30px;
   margin: 0;
-}
-
-.listItemImg2 {
-  display: none;
-}
-
-.listItem:hover .listItemImg1 {
-  display: none;
-}
-
-.listItem:hover .listItemImg2 {
-  display: inline-block;
-}
-
-.listItem:hover .listItemNumber,
-.listItem:hover .listItemTitle,
-.listItem:hover .listItemText {
-  color: #FFFFFF;
 }
 
 @media screen and (max-width: 1450px) {

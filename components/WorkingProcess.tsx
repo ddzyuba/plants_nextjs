@@ -31,14 +31,6 @@ const GET_HOME_WORKING_PROCESS = gql`
                     }
                   }
                 }
-                icon2 {
-                  data {
-                    attributes {
-                      name
-                      url
-                    }
-                  }
-                }
               }
             }
           }
@@ -83,13 +75,6 @@ const WorkingProcess = ({ data }: WorkingProcessProps): JSX.Element => {
                             src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${el.icon1.data.attributes.url}`}
                             alt={el.icon1.data.attributes.name}
                             className={styles.listItemImg1}
-                            width={70}
-                            height={70}
-                          />
-                          <Image
-                            src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${el.icon2.data.attributes.url}`}
-                            alt={el.icon1.data.attributes.name}
-                            className={styles.listItemImg2}
                             width={70}
                             height={70}
                           />

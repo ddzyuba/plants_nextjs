@@ -31,8 +31,15 @@ a {
   border-radius: 5px;
   border: 1px solid #00730C;
   color: #ffffff;
+  cursor: pointer;
   display: inline-block;
   padding: 10px 35px;
+  transition: all .5s;
+}
+
+.cta-btn:hover {
+  color: #00730C;
+  background: #ffffff;
 }
 
 .swiper-button-prev,

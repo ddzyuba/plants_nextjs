@@ -27,6 +27,13 @@
   color: #ffffff;
   display: inline-block;
   padding: 10px 35px;
+  transition: color .5s, background .5s;
+}
+
+.ctaButton:hover {
+  color: #00730C;
+  background: #ffffff;
+  border: 1px solid #00730C;
 }
 
 .people {

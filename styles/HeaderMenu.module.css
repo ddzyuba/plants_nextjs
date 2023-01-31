@@ -37,11 +37,18 @@
 
 .ctaBtn {
   background: #00730C;
+  border: 1px solid #00730C;
   border-radius: 5px;
   color: #ffffff;
   display: inline-block;
   padding: 15.5px 35px 15.5px 70px;
   position: relative;
+  transition: color .1s, background .3s;
+}
+
+.ctaBtn:hover {
+  color: #00730C;
+  background: #ffffff;
 }
 
 .ctaBtn::before {
@@ -49,6 +56,10 @@
   top: 10px;
   left: 30px;
   content: url('/phone-white.svg');
+}
+
+.ctaBtn:hover:before {
+  content: url('/phone-green.svg');
 }
 
 .mobileOpen {
