@@ -54,11 +54,14 @@ const GET_SERVICES_LIST = gql`
 `;
 
 export async function getServiceListData() {
-  const { data } = await client.query({
-    query: GET_SERVICES_LIST,
-  });
-
-  return data;
+  try {
+    const { data } = await client.query({
+      query: GET_SERVICES_LIST,
+    });
+    return data;
+  } catch (error) {
+    return false;
+  }
 }
 
 const ServiceList = ({ data }: ServiceListProps): JSX.Element => {
@@ -66,7 +69,7 @@ const ServiceList = ({ data }: ServiceListProps): JSX.Element => {
     <section className={styles.serviceList}>
       <div className='side-padding'>
         <div className='container'>
-          {data.homePage.data.attributes.dynamicZone.map((item: ComponentLayoutServices) => {
+          {data ? data.homePage.data.attributes.dynamicZone.map((item: ComponentLayoutServices) => {
             if (item.__typename === 'ComponentLayoutServices') {
               return (
                 <div key='ComponentLayoutServices'>
@@ -114,7 +117,7 @@ const ServiceList = ({ data }: ServiceListProps): JSX.Element => {
                 </div>
               );
             }
-          })}
+          }) : ''}
         </div>
       </div>
     </section>

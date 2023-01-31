@@ -43,11 +43,14 @@ const GET_FAQ = gql`
 `;
 
 export async function getFaqData() {
-  const { data } = await client.query({
-    query: GET_FAQ,
-  });
-
-  return data;
+  try {
+    const { data } = await client.query({
+      query: GET_FAQ,
+    });
+    return data;
+  } catch (error) {
+    return false;
+  }
 }
 
 const FaqListItem = ({ el, i }: FaqListItemProps): JSX.Element => {
@@ -83,7 +86,7 @@ const Faq = ({ data }: FaqProps): JSX.Element => {
     <div className={styles.faq}>
       <div className='side-padding'>
         <div className='container'>
-          {data.homePage.data.attributes.dynamicZone.map((item: ComponentLayoutFaq) => {
+          {data ? data.homePage.data.attributes.dynamicZone.map((item: ComponentLayoutFaq) => {
             if (item.__typename === 'ComponentLayoutFaq') {
               return (
                 <div key='ComponentLayoutFaq'>
@@ -119,7 +122,7 @@ const Faq = ({ data }: FaqProps): JSX.Element => {
                 </div>
               );
             }
-          })}
+          }) : ''}
         </div>
       </div>
     </div>

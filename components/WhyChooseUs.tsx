@@ -44,11 +44,14 @@ const GET_HOME_WHY_CHOOSE_US = gql`
 `;
 
 export async function getWhyChooseUsData() {
-  const { data } = await client.query({
-    query: GET_HOME_WHY_CHOOSE_US,
-  });
-
-  return data;
+  try {
+    const { data } = await client.query({
+      query: GET_HOME_WHY_CHOOSE_US,
+    });
+    return data;
+  } catch (error) {
+    return false;
+  }
 }
 
 const WhyChooseUs = ({ data }: WhyChooseUsProps): JSX.Element => {
@@ -56,7 +59,7 @@ const WhyChooseUs = ({ data }: WhyChooseUsProps): JSX.Element => {
     <div className={styles.wcu}>
       <div className='side-padding'>
         <div className='container'>
-          {data.homePage.data.attributes.dynamicZone.map((item: ComponentLayoutWhyChooseUs) => {
+          {data ? data.homePage.data.attributes.dynamicZone.map((item: ComponentLayoutWhyChooseUs) => {
             if (item.__typename === 'ComponentLayoutWhyChooseUs') {
               return (
                 <div key="ComponentLayoutWhyChooseUs" className={styles.wrapper}>
@@ -98,7 +101,7 @@ const WhyChooseUs = ({ data }: WhyChooseUsProps): JSX.Element => {
                 </div>
               );
             }
-          })}
+          }) : ''}
         </div>
       </div>
     </div>

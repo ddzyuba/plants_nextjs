@@ -55,11 +55,14 @@ const GET_LEFT_IMAGE_RIGHT_TEXT = gql`
 `;
 
 export async function getLeftImageRightTextData() {
-  const { data } = await client.query({
-    query: GET_LEFT_IMAGE_RIGHT_TEXT,
-  });
-
-  return data;
+  try {
+    const { data } = await client.query({
+      query: GET_LEFT_IMAGE_RIGHT_TEXT,
+    });
+    return data;
+  } catch (error) {
+    return false;
+  }
 }
 
 const LeftImageRightText = ({ data }: LeftImageRightTextDataProps): JSX.Element => {
@@ -67,7 +70,7 @@ const LeftImageRightText = ({ data }: LeftImageRightTextDataProps): JSX.Element 
     <div className={styles.lirt}>
       <div className='side-padding'>
         <div className='container'>
-          {data.homePage.data.attributes.dynamicZone.map((item: ComponentLayoutLeftImageRightText) => {
+          {data ? data.homePage.data.attributes.dynamicZone.map((item: ComponentLayoutLeftImageRightText) => {
             if (item.__typename === 'ComponentLayoutLeftImageRightText') {
               return (
                 <div key={'ComponentLayoutLeftImageRightText'}>
@@ -114,7 +117,7 @@ const LeftImageRightText = ({ data }: LeftImageRightTextDataProps): JSX.Element 
                 </div>
               );
             }
-          })}
+          }) : ''}
         </div>
       </div>
     </div>

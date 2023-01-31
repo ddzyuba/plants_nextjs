@@ -25,10 +25,14 @@ const Service = ({
   return (
     <div>
       <HeaderMenu data={headerMenuData} />
-      <ServiceHero title={data.data[0].attributes.title} />
-      <div className={styles.serviceContainer}>
-        <Content content={data.data[0].attributes.content} />
-      </div>
+      {data ? (
+        <>
+          <ServiceHero title={data.data[0].attributes.title} />
+          <div className={styles.serviceContainer}>
+            <Content content={data.data[0].attributes.content} />
+          </div>
+        </>
+      ) : ''}
       <WorkingProcess data={workingProcessData} />
       <Brands data={brandsData} />
       <GetQuote data={quoteData} />
@@ -61,6 +65,13 @@ export async function getStaticProps({ params }: StaticProps) {
   const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}/api/services?filters[slug][$eq]=${params.slug}`)
   const data = await res.json();
 
+  let serviceData;
+  if (data.data) {
+    serviceData = data;
+  } else {
+    serviceData = false;
+  }
+
   const workingProcessData = await getWorkingProcessData();
   const headerMenuData = await getHeaderMenuData();
   const brandsData = await getBrandsData();
@@ -69,7 +80,7 @@ export async function getStaticProps({ params }: StaticProps) {
 
   return {
     props: {
-      data: data,
+      data: serviceData,
       workingProcessData: workingProcessData,
       headerMenuData: headerMenuData,
       brandsData: brandsData,

@@ -24,22 +24,29 @@ const GET_PROJECTS_HERO = gql`
 `;
 
 export async function getProjectsHeroData() {
-  const { data } = await client.query({
-    query: GET_PROJECTS_HERO,
-  });
-
-  return data;
+  try {
+    const { data } = await client.query({
+      query: GET_PROJECTS_HERO,
+    });
+    return data;
+  } catch (error) {
+    return false;
+  }
 }
 
 const ProjectsHero = ({ data }: ProjectsHeroProps) => {
   return (
-    <div className={styles.aboutHero}>
-      <div className={styles.container}>
-        <div className={styles.wrapper}>
-          <h1 className={styles.heading}>{data.projectsPage.data.attributes.title}</h1>
+    <>
+      {data ? (
+        <div className={styles.aboutHero}>
+          <div className={styles.container}>
+            <div className={styles.wrapper}>
+              <h1 className={styles.heading}>{data.projectsPage.data.attributes.title}</h1>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      ) : ''}
+    </>
   );
 }
 

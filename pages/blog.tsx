@@ -45,6 +45,13 @@ export async function getStaticProps() {
   const res = await fetch(`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}/api/posts?pagination[pageSize]=4&populate[0]=image`)
   const data = await res.json();
 
+  let blogListData;
+  if (data.data) {
+    blogListData = data;
+  } else {
+    blogListData = false;
+  }
+
   const headerMenuData = await getHeaderMenuData();
   const brandsData = await getBrandsData();
   const quoteData = await getQuoteData();
@@ -52,7 +59,7 @@ export async function getStaticProps() {
 
   return {
     props: {
-      data,
+      data: blogListData,
       headerMenuData,
       brandsData,
       quoteData,

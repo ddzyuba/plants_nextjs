@@ -36,11 +36,14 @@ const GET_BRANDS = gql`
 `;
 
 export async function getBrandsData() {
-  const { data } = await client.query({
-    query: GET_BRANDS,
-  });
-
-  return data;
+  try {
+    const { data } = await client.query({
+      query: GET_BRANDS,
+    });
+    return data;
+  } catch (error) {
+    return false;
+  }
 }
 
 const Brands = ({ data }: BrandsProps): JSX.Element => {
@@ -48,7 +51,7 @@ const Brands = ({ data }: BrandsProps): JSX.Element => {
     <div className={styles.brands}>
       <div className='side-padding'>
         <div className={styles.container}>
-          {data.homePage.data.attributes.dynamicZone.map((item: ComponentLayoutBrands) => {
+          {data ? data.homePage.data.attributes.dynamicZone.map((item: ComponentLayoutBrands) => {
             if (item.__typename === 'ComponentLayoutBrands') {
               return (
                 <div key='ComponentLayoutBrands' className={styles.list}>
@@ -87,7 +90,7 @@ const Brands = ({ data }: BrandsProps): JSX.Element => {
                 </div>
               );
             }
-          })}
+          }) : ''}
         </div>
       </div>
     </div>

@@ -18,22 +18,29 @@ const GET_CONTENT = gql`
 `;
 
 export async function getContentData() {
-  const { data } = await client.query({
-    query: GET_CONTENT,
-  });
-
-  return data;
+  try {
+    const { data } = await client.query({
+      query: GET_CONTENT,
+    });
+    return data;
+  } catch (error) {
+    return false;
+  }
 }
 
 const Content = ({ data }: ContentProps): JSX.Element => {
   return (
-    <div className={styles.content}>
-      <div className='side-padding'>
-        <div className='container'>
-          <ReactMarkdown>{data.aboutUsPage.data.attributes.content}</ReactMarkdown>
+    <>
+      {data ? (
+        <div className={styles.content}>
+          <div className='side-padding'>
+            <div className='container'>
+              <ReactMarkdown>{data.aboutUsPage.data.attributes.content}</ReactMarkdown>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      ) : ''}
+    </>
   );
 };
 

@@ -53,11 +53,14 @@ const GET_STAFF = gql`
 `;
 
 export async function getStaffData() {
-  const { data } = await client.query({
-    query: GET_STAFF,
-  });
-
-  return data;
+  try {
+    const { data } = await client.query({
+      query: GET_STAFF,
+    });
+    return data;
+  } catch (error) {
+    return false;
+  }
 }
 
 const Staff = ({ data }: StaffProps): JSX.Element => {
@@ -65,7 +68,7 @@ const Staff = ({ data }: StaffProps): JSX.Element => {
     <div className={styles.staff}>
       <div className='side-padding'>
         <div className='container'>
-          {data.homePage.data.attributes.dynamicZone.map((item: ComponentLayoutStaff) => {
+          {data ? data.homePage.data.attributes.dynamicZone.map((item: ComponentLayoutStaff) => {
             if (item.__typename === 'ComponentLayoutStaff') {
               return (
                 <div key="ComponentLayoutStaff">
@@ -126,7 +129,7 @@ const Staff = ({ data }: StaffProps): JSX.Element => {
                 </div>
               );
             }
-          })}
+          }) : ''}
         </div>
       </div>
     </div>

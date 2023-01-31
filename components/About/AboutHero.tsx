@@ -25,22 +25,29 @@ const GET_ABOUT_HERO = gql`
 `;
 
 export async function getAboutHeroData() {
-  const { data } = await client.query({
-    query: GET_ABOUT_HERO,
-  });
-
-  return data;
+  try {
+    const { data } = await client.query({
+      query: GET_ABOUT_HERO,
+    });
+    return data;
+  } catch (error) {
+    return false;
+  }
 }
 
 const AboutHero = ({ data }: AboutHeroProps) => {
   return (
-    <div className={styles.aboutHero}>
-      <div className={styles.container}>
-        <div className={styles.wrapper}>
-          <h1 className={styles.heading}>{data.aboutUsPage.data.attributes.title}</h1>
+    <>
+      {data ? (
+        <div className={styles.aboutHero}>
+          <div className={styles.container}>
+            <div className={styles.wrapper}>
+              <h1 className={styles.heading}>{data.aboutUsPage.data.attributes.title}</h1>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      ) : ''}
+    </>
   );
 }
 

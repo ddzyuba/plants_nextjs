@@ -62,31 +62,35 @@ type TagData = {
 
 const RelatedProjects = ({ relatedProjects }: RelatedProjectsProps) => {
   return (
-    <div className={styles.relatedProjects}>
-      <h3 className={styles.heading}>Related Projects</h3>
-      <div className={styles.wrapper}>
-        {relatedProjects.data.map((item: Project) => (
-          <div className={styles.item} key={item.id}>
-            <Image
-              src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${item.attributes.image.data.attributes.url}`}
-              alt={item.attributes.image.data.attributes.name}
-              width={330}
-              height={259}
-              className={styles.itemImage}
-            />
-            <div className={styles.itemWrapper}>
-              <Link
-                className={styles.itemTitle}
-                href={`/projects/${item.attributes.slug}`}
-              >
-                {item.attributes.title}
-              </Link>
-              <div className={styles.itemText}>{item.attributes.excerpt}</div>
-            </div>
+    <>
+      {relatedProjects ? (
+        <div className={styles.relatedProjects}>
+          <h3 className={styles.heading}>Related Projects</h3>
+          <div className={styles.wrapper}>
+            {relatedProjects.data.map((item: Project) => (
+              <div className={styles.item} key={item.id}>
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${item.attributes.image.data.attributes.url}`}
+                  alt={item.attributes.image.data.attributes.name}
+                  width={330}
+                  height={259}
+                  className={styles.itemImage}
+                />
+                <div className={styles.itemWrapper}>
+                  <Link
+                    className={styles.itemTitle}
+                    href={`/projects/${item.attributes.slug}`}
+                  >
+                    {item.attributes.title}
+                  </Link>
+                  <div className={styles.itemText}>{item.attributes.excerpt}</div>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </div>
+        </div>
+      ) : ''}
+    </>
   );
 }
 

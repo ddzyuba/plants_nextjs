@@ -49,11 +49,14 @@ const GET_TESTIMONIALS = gql`
 `;
 
 export async function getTestimonialsData() {
-  const { data } = await client.query({
-    query: GET_TESTIMONIALS,
-  });
-
-  return data;
+  try {
+    const { data } = await client.query({
+      query: GET_TESTIMONIALS,
+    });
+    return data;
+  } catch (error) {
+    return false;
+  }
 }
 
 const Testimonials = ({ data }: TestimonialsProps): JSX.Element => {
@@ -61,7 +64,7 @@ const Testimonials = ({ data }: TestimonialsProps): JSX.Element => {
     <div className={styles.testimonials}>
       <div className='side-padding'>
         <div className='container'>
-          {data.homePage.data.attributes.dynamicZone.map((item: ComponentLayoutTestimonials) => {
+          {data ? data.homePage.data.attributes.dynamicZone.map((item: ComponentLayoutTestimonials) => {
             if (item.__typename === 'ComponentLayoutTestimonials') {
               return (
                 <div key='ComponentLayoutTestimonials'>
@@ -114,7 +117,7 @@ const Testimonials = ({ data }: TestimonialsProps): JSX.Element => {
                 </div>
               );
             }
-          })}
+          }) : ''}
         </div>
       </div>
     </div>

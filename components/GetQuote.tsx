@@ -30,17 +30,20 @@ const GET_QUOTE = gql`
 `;
 
 export async function getQuoteData() {
-  const { data } = await client.query({
-    query: GET_QUOTE,
-  });
-
-  return data;
+  try {
+    const { data } = await client.query({
+      query: GET_QUOTE,
+    });
+    return data;
+  } catch (error) {
+    return false;
+  }
 }
 
 const GetQuote = ({ data }: GetQuoteProps): JSX.Element => {
   return (
     <div className={styles.getQuote}>
-      {data.homePage.data.attributes.dynamicZone.map((item: ComponentLayoutGetQuote) => {
+      {data ? data.homePage.data.attributes.dynamicZone.map((item: ComponentLayoutGetQuote) => {
         if (item.__typename === 'ComponentLayoutGetQuote') {
           return (
             <div className='side-padding' key='ComponentLayoutGetQuote'>
@@ -56,7 +59,7 @@ const GetQuote = ({ data }: GetQuoteProps): JSX.Element => {
             </div>
           );
         }
-      })}
+      }) : ''}
     </div>
   );
 }

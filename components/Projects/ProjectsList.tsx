@@ -56,7 +56,11 @@ const ProjectsList = ({ activeTag, activePage, setActivePage }: ProjectsListProp
     fetch(url)
       .then((res) => res.json())
       .then((data) => {
-        setData(data);
+        if (data.data) {
+          setData(data);
+        } else {
+          setData(null);
+        }
         setLoading(false);
       })
   }, [activeTag, activePage]);
@@ -66,30 +70,34 @@ const ProjectsList = ({ activeTag, activePage, setActivePage }: ProjectsListProp
 
   return (
     <>
-      <div className={styles.wrapper}>
-        {data.data.map((item: Project) => (
-          <div className={styles.item} key={item.id}>
-            <Image
-              src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${item.attributes.image.data.attributes.url}`}
-              alt={item.attributes.image.data.attributes.name}
-              width={330}
-              height={259}
-              className={styles.itemImage}
-            />
-            <div className={styles.itemWrapper}>
-              <Link className={styles.itemTitle} href={`/projects/${item.attributes.slug}`}>{item.attributes.title}</Link>
-              <div className={styles.itemText}>{item.attributes.excerpt}</div>
-            </div>
+      {data ? (
+        <>
+          <div className={styles.wrapper}>
+            {data.data.map((item: Project) => (
+              <div className={styles.item} key={item.id}>
+                <Image
+                  src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${item.attributes.image.data.attributes.url}`}
+                  alt={item.attributes.image.data.attributes.name}
+                  width={330}
+                  height={259}
+                  className={styles.itemImage}
+                />
+                <div className={styles.itemWrapper}>
+                  <Link className={styles.itemTitle} href={`/projects/${item.attributes.slug}`}>{item.attributes.title}</Link>
+                  <div className={styles.itemText}>{item.attributes.excerpt}</div>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-      {data.meta.pagination.pageCount > 1 ?
-        <Pagination
-          pageCount={data.meta.pagination.pageCount}
-          pageCurrent={data.meta.pagination.page}
-          setActivePage={setActivePage}
-          activePage={activePage}
-        /> : ''}
+          {data.meta.pagination.pageCount > 1 ?
+            <Pagination
+              pageCount={data.meta.pagination.pageCount}
+              pageCurrent={data.meta.pagination.page}
+              setActivePage={setActivePage}
+              activePage={activePage}
+            /> : ''}
+        </>
+      ) : ''}
     </>
   );
 };

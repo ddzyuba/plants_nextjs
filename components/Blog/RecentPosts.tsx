@@ -28,28 +28,32 @@ type Post = {
 
 const RecentPosts = ({ recentPosts }: Props) => {
   return (
-    <div className={styles.container}>
-      {recentPosts.data.map((post: Post) => (
-        <div key={post.id} className={styles.item}>
-          <Image
-            className={styles.image}
-            width={106}
-            height={75}
-            src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${post.attributes.image.data.attributes.url}`}
-            alt={post.attributes.image.data.attributes.name}
-          />
-          <div className={styles.itemWrapper}>
-            <Link
-              className={styles.title}
-              href={`/blog/${post.attributes.slug}`}
-            >
-              {post.attributes.title}
-            </Link>
-            <div className={styles.date}>{timeConverter(Date.parse(post.attributes.publishedAt))}</div>
-          </div>
+    <>
+      {recentPosts ? (
+        <div className={styles.container}>
+          {recentPosts.data.map((post: Post) => (
+            <div key={post.id} className={styles.item}>
+              <Image
+                className={styles.image}
+                width={106}
+                height={75}
+                src={`${process.env.NEXT_PUBLIC_STRAPI_CMS_URL}${post.attributes.image.data.attributes.url}`}
+                alt={post.attributes.image.data.attributes.name}
+              />
+              <div className={styles.itemWrapper}>
+                <Link
+                  className={styles.title}
+                  href={`/blog/${post.attributes.slug}`}
+                >
+                  {post.attributes.title}
+                </Link>
+                <div className={styles.date}>{timeConverter(Date.parse(post.attributes.publishedAt))}</div>
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
-    </div>
+      ) : ''}
+    </>
   );
 };
 

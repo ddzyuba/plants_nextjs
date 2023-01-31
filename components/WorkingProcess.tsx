@@ -49,11 +49,14 @@ const GET_HOME_WORKING_PROCESS = gql`
 `;
 
 export async function getWorkingProcessData() {
-  const { data } = await client.query({
-    query: GET_HOME_WORKING_PROCESS,
-  });
-
-  return data;
+  try {
+    const { data } = await client.query({
+      query: GET_HOME_WORKING_PROCESS,
+    });
+    return data;
+  } catch (error) {
+    return false;
+  }
 }
 
 const WorkingProcess = ({ data }: WorkingProcessProps): JSX.Element => {
@@ -61,7 +64,7 @@ const WorkingProcess = ({ data }: WorkingProcessProps): JSX.Element => {
     <div className={styles.wp}>
       <div className='side-padding'>
         <div className='container'>
-          {data.homePage.data.attributes.dynamicZone.map((item: ComponentLayoutWorkingProcess) => {
+          {data ? data.homePage.data.attributes.dynamicZone.map((item: ComponentLayoutWorkingProcess) => {
             if (item.__typename === 'ComponentLayoutWorkingProcess') {
               return (
                 <div key="ComponentLayoutWorkingProcess">
@@ -100,7 +103,7 @@ const WorkingProcess = ({ data }: WorkingProcessProps): JSX.Element => {
                 </div>
               );
             }
-          })}
+          }) : ''}
         </div>
       </div>
     </div>
