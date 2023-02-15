@@ -87,5 +87,6 @@ export async function getStaticProps({ params }: StaticProps) {
       quoteData: quoteData,
       footerMenuData: footerMenuData
     },
+    revalidate: 10,
   }
 }
